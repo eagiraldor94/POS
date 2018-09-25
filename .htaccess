@@ -1,0 +1,14 @@
+Options All -Indexes
+<IfModule mod_rewrite.c>    
+  RewriteEngine on
+
+  RewriteRule ^.well-known/ - [L,NC]
+
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  RewriteRule ^([-a-zA-Z-0-9/]+)$ index.php?ruta=$1
+</IfModule>
